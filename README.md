@@ -1,5 +1,5 @@
 # Gridmaker
-Manipulating a table in Javascript. Assignment #3 of Practical Web Dev.
+A colorful Gridmaker created with Javascript. Assignment #3 of Practical Web Dev.
 
 Group members:
 
