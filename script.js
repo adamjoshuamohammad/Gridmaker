@@ -9,9 +9,9 @@ function addR() {
     let newCell = newRow.appendChild(document.createElement("td"));
     if (numRows === 0) {
         numCols = 0;   
-        newCell.onclick = paintCell;
         numRows++;
         numCols++;
+        newCell.onclick = paintCell;
     }
     else {
         newCell.onclick = paintCell;
@@ -26,8 +26,8 @@ function addR() {
 function addC() {
     //alert("Clicked Add Col")
     if (numCols === 0) {
-        numRows = 0;
         grid.appendChild(document.createElement("tr")).appendChild(document.createElement("td")).onclick = paintCell;
+        numRows = 0;
         numRows++;
         numCols++;
     }
@@ -46,14 +46,8 @@ function removeR() {
     if (numRows !== 0) 
     {
         grid.removeChild(grid.lastElementChild);
-        if (numRows > 0) {
-            numRows--;
-        }
-        if (numRows === 0) {
-            numCols = 0;
-        }
+        elementDeleted("row");
     }
-    printGridSize();
 }
 //Remove a column
 function removeC() {
@@ -65,14 +59,8 @@ function removeC() {
                 grid.rows[i].deleteCell(-1);
             }
         }
-        if (numCols > 0) {
-            numCols--;
-        }
-        if (numCols === 0) {
-            numRows = 0;
-        }
+        elementDeleted("col");
     }
-    printGridSize();
 }
 //sets global var for selected color
 function selected(){
@@ -94,14 +82,39 @@ function fillU(){
     //alert("Clicked Fill All Uncolored")
     for (let i = 0; i < numRows; i++) {
         for (let j = 0; j < numCols; j++) {
-            if (grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style.backgroundColor === "" || grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style.backgroundColor === "white") {
+            if (grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style.backgroundColor === "" || 
+                grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style.backgroundColor === "white") {
                 grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style.backgroundColor = colorSelected;
             }
         }
     }
 }
 
+//Custom Functions:
+
+function printGridSize() { console.log(`columns: ${numCols} rows:  ${numRows}`); }
+
 function paintCell() { this.style.backgroundColor = colorSelected; } 
+
+function elementDeleted(element) {
+    if (element === "row") {
+        if (numRows > 0) {
+            numRows--;
+        }
+        if (numRows === 0) {
+            numCols = 0;
+        }
+    }
+    else if (element === "col") {
+        if (numCols > 0) {
+            numCols--;
+        }
+        if (numCols === 0) {
+            numRows = 0;
+        }
+    }
+    printGridSize();
+}
 
 function paintGrid(color) {
     for (let i = 0; i < numRows; i++) {
@@ -111,4 +124,3 @@ function paintGrid(color) {
     }
 }
 
-function printGridSize() { console.log(`columns: ${numCols} rows:  ${numRows}`); }
